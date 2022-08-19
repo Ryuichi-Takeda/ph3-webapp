@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    {{dd($user[0]->posts)}};
     <!-- /.header ここから -->
     <header>
         <div class="header_inner">
