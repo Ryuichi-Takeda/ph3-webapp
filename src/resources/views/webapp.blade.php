@@ -17,10 +17,9 @@
 
 <body>
     <!-- /.header ここから -->
-    <?php require 'capsule/header.php'; ?>
     <header>
         <div class="header_inner">
-            <img src="{{ asset('../img/posseLogo.png') }}" alt="POSSE" class="posseLogo" />
+            <img src="{{ asset('img/posseLogo.png') }}" alt="POSSE" class="posseLogo" />
             <div class="week_number">nthweek</div>
             <nav class="header_text_container">
                 <div class="report_and_posting modal-open">
