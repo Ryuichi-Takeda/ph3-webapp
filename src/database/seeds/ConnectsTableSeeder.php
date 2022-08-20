@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PostsStudiesConnectTableSeeder extends Seeder
+class ConnectsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -31,6 +31,6 @@ class PostsStudiesConnectTableSeeder extends Seeder
             ['post_id'=>9,'study_id'=>4],
             ['post_id'=>9,'study_id'=>6],
         ];
-        DB::table('posts_studies_connect')->insert($param);
+        DB::table('connects')->insert($param);
     }
 }
