@@ -83,36 +83,3 @@ function show_graph() {
     });
 }
 show_graph();
-// データ --- (*1)
-const bar_chart_data = {
-    labels: [
-        'A', 'B', 'C', 'D', 'E',
-        'A', 'B', 'C', 'D', 'E',
-        'A', 'B', 'C', 'D', 'E',
-        'A', 'B', 'C', 'D', 'E',
-        'A', 'B', 'C', 'D', 'E'
-    ],
-    datasets: [{
-        label: '学習時間',
-        data: [
-            0.1, 1, 5, 3, 6, 2,
-            0.1, 1, 5, 3, 6, 2,
-            0.1, 1, 5, 3, 6, 2,
-            0.1, 1, 5, 3, 6, 2,
-            0.1, 1, 5, 3, 6, 2
-        ],
-        backgroundColor: [
-            'blue', 'blue', 'blue', 'blue', 'blue',
-            'blue', 'blue', 'blue', 'blue', 'blue',
-            'blue', 'blue', 'blue', 'blue', 'blue',
-            'blue', 'blue', 'blue', 'blue', 'blue',
-            'blue', 'blue', 'blue', 'blue', 'blue'
-        ]
-    }]
-} // グラフを描画 --- (*2)
-const bar_chart_ctx = document.getElementById('bar_chart_cv')
-const bar_chart_cv = new Chart(bar_chart_ctx, {
-    type: 'bar', // グラフの種類
-    data: bar_chart_data, // データ 
-    options: {}
-}) // オプション 
