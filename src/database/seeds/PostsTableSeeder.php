@@ -13,15 +13,15 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         $param = [
-            ['comment'=>'難しかった','hour'=>1,'date_id'=>1,'user_id'=>1],
-            ['comment'=>'','hour'=>3,'date_id'=>1,'user_id'=>1],
-            ['comment'=>'','hour'=>2,'date_id'=>1,'user_id'=>2],
-            ['comment'=>'','hour'=>4,'date_id'=>2,'user_id'=>1],
-            ['comment'=>'','hour'=>1,'date_id'=>3,'user_id'=>2],
-            ['comment'=>'終わった','hour'=>6,'date_id'=>4,'user_id'=>2],
-            ['comment'=>'終わった','hour'=>4,'date_id'=>5,'user_id'=>2],
-            ['comment'=>'','hour'=>4,'date_id'=>5,'user_id'=>3],
-            ['comment'=>'','hour'=>4,'date_id'=>6,'user_id'=>3],
+            ['comment'=>'難しかった','hour'=>1,'day'=>'2022-07-11','user_id'=>1],
+            ['comment'=>'','hour'=>3,'day'=>'2022-07-11','user_id'=>1],
+            ['comment'=>'','hour'=>2,'day'=>'2022-07-11','user_id'=>2],
+            ['comment'=>'','hour'=>4,'day'=>'2022-07-20','user_id'=>1],
+            ['comment'=>'','hour'=>1,'day'=>'2022-08-11','user_id'=>2],
+            ['comment'=>'終わった','hour'=>6,'day'=>'2022-08-14','user_id'=>2],
+            ['comment'=>'終わった','hour'=>4,'day'=>'2022-08-17','user_id'=>2],
+            ['comment'=>'','hour'=>4,'day'=>'2022-08-17','user_id'=>3],
+            ['comment'=>'','hour'=>4,'day'=>'2022-08-21','user_id'=>3],
         ];
         DB::table('posts')->insert($param);
     }
