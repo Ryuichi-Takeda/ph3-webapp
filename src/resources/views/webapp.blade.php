@@ -16,7 +16,6 @@
 </head>
 
 <body>
-    {{dd($user[0]->posts)}};
     <!-- /.header ここから -->
     <header>
         <div class="header_inner">
@@ -39,19 +38,17 @@
             <div class="study_hour">
                 <div class="study_hour_card">
                     today
-                    <p>0</p>
-                    <!-- 6 -->
+                    <p>{{ $today_study_hours }}</p>
                     <p>hour</p>
                 </div>
                 <div class="study_hour_card">
                     month
-                    <p>0</p>
-                    <!-- 12 -->
+                    <p>{{ $month_study_hours }}</p>
                     <p>hour</p>
                 </div>
                 <div class="study_hour_card">
                     total
-                    <p>0</p>
+                    <p>{{ $total_study_hours }}</p>
                     <p>hour</p>
                 </div>
             </div>
