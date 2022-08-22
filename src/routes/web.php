@@ -16,3 +16,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('webapp/{user_id}','WebappController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
