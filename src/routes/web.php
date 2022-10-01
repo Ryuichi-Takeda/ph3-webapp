@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('webapp/{user_id}','WebappController@index');
+Route::get('webapp/{user_id}','StudyDataController@index');
