@@ -206,8 +206,13 @@
                     </div>
                 </div>
             </div>
-            <div class="report_and_posting2_container" id="report_and_posting2_container" onclick="click">
-                <div class="report_and_posting2">記録・投稿</div>
+            <div class="report_and_posting2_container" id="report_and_posting2_container" onclick="post">
+                <div class="report_and_posting2">
+                    <span>
+                        記録・投稿
+                    </span>
+                </div>
+
             </div>
         </div>
     </div>
