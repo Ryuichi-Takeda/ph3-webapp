@@ -8,22 +8,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/webapp.css') }}" />
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
     <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
@@ -32,36 +16,11 @@
 </head>
 
 <body>
-    {{-- @extends('layouts.app') --}}
     <!-- /.header ここから -->
-    <link rel="stylesheet" href="{{ asset('css/reset.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/webapp.css') }}" />
-    <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
     <header>
         <div class="header_inner">
             <img src="{{ asset('img/posseLogo.png') }}" alt="POSSE" class="posseLogo" />
-            <div class="week_number">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-            </div>
+            <div class="week_number">nthweek</div>
             <nav class="header_text_container">
                 <div class="report_and_posting modal-open">
                     <a href="#modal">
@@ -254,3 +213,5 @@
     </div>
     <!-- /.modal ここまで -->
     <script src="{{ asset('js/script.js') }}"></script>
+
+</body>
