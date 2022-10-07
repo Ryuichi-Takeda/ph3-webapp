@@ -17,7 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('webapp', 'WebappController@show')->name('webapp');
-
 Auth::routes();
-
-// Route::get('webapp/{user_id}', 'WebappController@index')->name('webapp');
+Route::get('/mail', 'MailSendController@index');
