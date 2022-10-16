@@ -8,7 +8,7 @@ use App\Post;
 use App\Connect;
 use DateTime;
 
-class WebappController extends Controller
+class StudyDataController extends Controller
 {
     public function index($user_id)
     {

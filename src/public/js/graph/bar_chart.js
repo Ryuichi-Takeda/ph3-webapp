@@ -1,7 +1,7 @@
 'use strict'
 function show_graph() {
-    var ctx = document.getElementById("bar_chart_cv").getContext('2d');
-    var myChart = new Chart(ctx, {
+    let ctx = document.getElementById("bar_chart_cv").getContext('2d');
+    let myBarChart = new Chart(ctx, {
         type: "bar",
         data: {
             labels: [

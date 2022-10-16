@@ -15,7 +15,7 @@ done.classList.add("none");
 
 function tweet() {
     if (circle12.classList.contains("blue") == true) {
-        var textarea = document.getElementById("textarea");
+        let textarea = document.getElementById("textarea");
         console.log(textarea.value);
         window.open("https://twitter.com/intent/tweet?text=" + textarea.value);
     } else {
@@ -24,7 +24,7 @@ function tweet() {
     done.classList.remove("none");
 }
 
-function click() {
+function post() {
     modal_wrapper.classList.add("center");
     setTimeout(tweet, 3000);
 }
@@ -37,8 +37,8 @@ report_and_posting2_container.addEventListener("click", () => {
     report_and_posting2_container.classList.add("none");
 });
 //カレンダー
-var study_day_record = document.getElementById("study_day_record");
-var fp = flatpickr(study_day_record, {
+let study_day_record = document.getElementById("study_day_record");
+let fp = flatpickr(study_day_record, {
     enableTime: true,
     dateFormat: "Y-m-d", // フォーマットの変更
 });
