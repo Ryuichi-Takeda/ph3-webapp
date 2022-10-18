@@ -10,9 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('webapp/{user_id}','WebappController@index');
+Route::get('webapp', 'WebappController@show')->name('webapp');
+
+Auth::routes();
+
+// Route::get('webapp/{user_id}', 'WebappController@index')->name('webapp');

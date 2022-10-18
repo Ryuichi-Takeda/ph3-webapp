@@ -20,7 +20,19 @@
     <header>
         <div class="header_inner">
             <img src="{{ asset('img/posseLogo.png') }}" alt="POSSE" class="posseLogo" />
-            <div class="week_number">nthweek</div>
+            <div class="week_number">
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+        </div>
             <nav class="header_text_container">
                 <div class="report_and_posting modal-open">
                     <a href="#modal">
@@ -35,6 +47,10 @@
     <!-- /.graph ここから -->
     <div class="graphs">
         <div class="graphs_left">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>ようこそ
+            {{ Auth::user()->name }}さん <span class="caret"></span>
+        </a>
             <div class="study_hour">
                 <div class="study_hour_card">
                     today
@@ -295,3 +311,5 @@ show_graph();</script>
     </div>
     <!-- /.modal ここまで -->
     <script src="{{ asset('js/script.js') }}"></script>
+
+</body>
