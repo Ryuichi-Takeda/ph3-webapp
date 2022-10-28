@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('webapp', 'WebappController@show')->name('webapp');
+Route::get('webapp', 'StudyDataController@index');
 Auth::routes();
 Route::get('/mail', 'MailSendController@index');

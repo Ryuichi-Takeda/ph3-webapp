@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 </head>
 
 <body>
     <!-- /.header ここから -->
-    <header>
+<header>
         <div class="header_inner">
             <img src="{{ asset('img/posseLogo.png') }}" alt="POSSE" class="posseLogo" />
             <div class="week_number">
@@ -71,7 +72,89 @@
             <div class="study_hour_graph">
                 <div class="study_hour_graph_card">
                     <canvas id="bar_chart_cv" class="bar_chart">
-                        <script src="{{ asset('js/graph/bar_chart.js') }}"></script>
+                        <script>
+                            function show_graph() {
+                                var ctx = document.getElementById("bar_chart_cv").getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: "bar",
+                                    data: {
+                                        labels: [
+                                            "", "2", "", "4", "",
+                                            "6", "", "8", "", "10",
+                                            "", "12", "", "14", "",
+                                            "16", "", "18", "", "20",
+                                            "", "22", "", "24", "",
+                                            "26", "", "28", "", "30"
+                                        ],
+                                        datasets: [{
+                                            label: "系列Ａ",
+                                            data: [
+                                                @foreach ($day_study_hours_array as $day_study_hours)
+                                                    {{ $day_study_hours }},
+                                                @endforeach
+                                            ],
+                                            backgroundColor: "rgba(0,112,184)",
+                                            // borderColor: "rgb(0,112,184)",
+                                            // borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        legend: {
+                                            display: false
+                                        },
+                                        scales: { // 軸設定
+                                            xAxes: [ // Ｘ軸設定
+                                                {
+                                                    scaleLabel: { // 軸ラベル
+                                                        display: true, // 表示設定
+                                                        //labelString: '横軸ラベル',    // ラベル
+                                                        fontColor: "black", // 文字の色
+                                                        fontSize: 16 // フォントサイズ
+                                                    },
+                                                    gridLines: { // 補助線
+                                                        display: false,
+                                                        //color: "rgba(255, 0, 0, 0.2)", // 補助線の色
+                                                    },
+                                                    ticks: { // 目盛り
+                                                        // min: 0,                        // 最小値
+                                                        // max: 30,                       // 最大値
+                                                        // stepSize: 2,                   // 軸間隔
+                                                        fontColor: "black", // 目盛りの色
+                                                        fontSize: 5 // フォントサイズ
+                                                    }
+                                                }
+                                            ],
+                                            yAxes: [ // Ｙ軸設定
+                                                {
+                                                    scaleLabel: { // 軸ラベル
+                                                        display: true, // 表示の有無
+                                                        //labelString: '縦軸ラベル',     // ラベル
+                                                        fontFamily: "sans-serif",
+                                                        fontColor: "black", // 文字の色
+                                                        fontFamily: "sans-serif",
+                                                        fontSize: 16 // フォントサイズ
+                                                    },
+                                                    gridLines: { // 補助線
+                                                        // display:false,
+                                                        color: "rgba(255,255,255)", // 補助線の色
+                                                        zeroLineColor: "black" // y=0（Ｘ軸の色）
+                                                    },
+                                                    ticks: { // 目盛り
+                                                        min: 0, // 最小値
+                                                        max: 10, // 最大値
+                                                        stepSize: 2, // 軸間隔
+                                                        fontColor: "black", // 目盛りの色
+                                                        fontSize: 14 // フォントサイズ
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                });
+                            }
+                            show_graph();
+                        </script>
                     </canvas>
                 </div>
             </div>
@@ -83,11 +166,181 @@
                     <div class="πchart_card_title">学習言語</div>
                     <canvas id="doughnut_chart1_cv" class="doughnut_chart"></canvas>
                 </div>
-                <script src="{{ asset('js/graph/doughnut_chart.js') }}"></script>
+                <script>
+                    let dataLabelPlugin1 = {
+                        afterDatasetsDraw: function(chart, easing) {
+                            //To only draw at the end of animation, check for easing === 1
+                            let ctx = chart.ctx;
+                            chart.data.datasets.forEach(function(dataset, i) {
+                                let dataSum = 0;
+                                dataset.data.forEach(function(element) {
+                                    dataSum += element;
+                                });
+                                let meta = chart.getDatasetMeta(i);
+                                if (!meta.hidden) {
+                                    meta.data.forEach(function(element, index) {
+                                        // Draw the text in black, with the specified font
+                                        ctx.fillStyle = "rgb(255, 255, 255)";
+                                        let fontSize = 12;
+                                        let fontStyle = "normal";
+                                        let fontFamily = "Helvetica Neue";
+                                        ctx.font = Chart.helpers.fontString(
+                                            fontSize,
+                                            fontStyle,
+                                            fontFamily
+                                        );
+                                        // Just naively convert to string for now
+                                        let labelString = chart.data.labels[index];
+                                        let dataString =
+                                            (
+                                                Math.round((dataset.data[index] / dataSum) * 1000) /
+                                                10
+                                            ).toString() + "%";
+                                        // Make sure alignment settings are correct
+                                        ctx.textAlign = "center";
+                                        ctx.textBaseline = "middle";
+                                        let padding = 5;
+                                        let position = element.tooltipPosition();
+                                        ctx.fillText(
+                                            labelString,
+                                            position.x,
+                                            position.y - fontSize / 2 - padding
+                                        );
+                                        ctx.fillText(
+                                            dataString,
+                                            position.x,
+                                            position.y + fontSize / 2 - padding
+                                        );
+                                    });
+                                }
+                            });
+                        },
+                    };
+                    // Chart
+                    let myDoughnutChart1 = "doughnut_chart1_cv";
+                    let chart = new Chart(myDoughnutChart1, {
+                        type: "doughnut",
+                        data: {
+                            labels: ["", "", "", "", "", "", "", ""],
+                            datasets: [{
+                                label: "Sample",
+                                backgroundColor: [
+                                    "rgb(0,66,229)",
+                                    "rgb(0,112,185)",
+                                    "rgb(0,189,219)",
+                                    "rgb(8,205,250)",
+                                    "rgb(203,173,240)",
+                                    "rgb(108,67,229)",
+                                    "rgb(70,9,232)",
+                                    "rgb(45,0,186)",
+                                ],
+                                data: [
+                                    @foreach ($study_languages_hours_array as $study_languages_hours)
+                                        {{ $study_languages_hours }},
+                                    @endforeach
+                                ],
+                            }, ],
+                        },
+                        options: {
+                            //  title: {
+                            //      display: false,
+                            //      text: "Sample"
+                            //  },
+                            legend: {
+                                display: false,
+                            },
+                            maintainAspectRatio: false,
+                        },
+                        plugins: [dataLabelPlugin1],
+                    });
+                </script>
                 <div class="πchart_card">
                     <div class="πchart_card_title">学習コンテンツ</div>
                     <canvas id="doughnut_chart_cv" class="doughnut_chart">
-                        <script src="{{ asset('js/graph/doughnut_chart2.js') }}"></script>
+                        <script>
+                            let dataLabelPlugin2 = {
+                                afterDatasetsDraw: function(chart, easing) {
+                                    //To only draw at the end of animation, check for easing === 1
+                                    let ctx = chart.ctx;
+                                    chart.data.datasets.forEach(function(dataset, i) {
+                                        let dataSum = 0;
+                                        dataset.data.forEach(function(element) {
+                                            dataSum += element;
+                                        });
+                                        let meta = chart.getDatasetMeta(i);
+                                        if (!meta.hidden) {
+                                            meta.data.forEach(function(element, index) {
+                                                // Draw the text in black, with the specified font
+                                                ctx.fillStyle = "rgb(255, 255, 255)";
+                                                let fontSize = 12;
+                                                let fontStyle = "normal";
+                                                let fontFamily = "Helvetica Neue";
+                                                ctx.font = Chart.helpers.fontString(
+                                                    fontSize,
+                                                    fontStyle,
+                                                    fontFamily
+                                                );
+                                                // Just naively convert to string for now
+                                                let labelString = chart.data.labels[index];
+                                                let dataString =
+                                                    (
+                                                        Math.round((dataset.data[index] / dataSum) * 1000) /
+                                                        10
+                                                    ).toString() + "%";
+                                                // Make sure alignment settings are correct
+                                                ctx.textAlign = "center";
+                                                ctx.textBaseline = "middle";
+                                                let padding = 5;
+                                                let position = element.tooltipPosition();
+                                                ctx.fillText(
+                                                    labelString,
+                                                    position.x,
+                                                    position.y - fontSize / 2 - padding
+                                                );
+                                                ctx.fillText(
+                                                    dataString,
+                                                    position.x,
+                                                    position.y + fontSize / 2 - padding
+                                                );
+                                            });
+                                        }
+                                    });
+                                },
+                            };
+                            // Chart
+                            let myDoughnutChart2 = "doughnut_chart_cv";
+                            let chart2 = new Chart(myDoughnutChart2, {
+                                type: "doughnut",
+                                data: {
+                                    labels: ["", "", "", ""],
+                                    datasets: [{
+                                        label: "Sample",
+                                        backgroundColor: [
+                                            "rgb(0,66,229)",
+                                            "rgb(0,112,185)",
+                                            "rgb(0,189,219)",
+                                            "rgb(8,205,250)",
+                                        ],
+                                        data: [
+                                            @foreach ($study_contents_hours_array as $study_contents_hours)
+                                                {{ $study_contents_hours }},
+                                            @endforeach
+                                        ],
+                                    }, ],
+                                },
+                                options: {
+                                    //  title: {
+                                    //      display: false,
+                                    //      text: "Sample"
+                                    //  },
+                                    legend: {
+                                        display: false,
+                                    },
+                                    maintainAspectRatio: false,
+                                },
+                                plugins: [dataLabelPlugin2],
+                            });
+                        </script>
                     </canvas>
                 </div>
             </div>
@@ -222,8 +475,13 @@
                     </div>
                 </div>
             </div>
-            <div class="report_and_posting2_container" id="report_and_posting2_container" onclick="click">
-                <div class="report_and_posting2">記録・投稿</div>
+            <div class="report_and_posting2_container" id="report_and_posting2_container" onclick="post">
+                <div class="report_and_posting2">
+                    <span>
+                        記録・投稿
+                    </span>
+                </div>
+
             </div>
         </div>
     </div>
