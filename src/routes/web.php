@@ -16,3 +16,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('webapp/{user_id}','StudyDataController@index');
+Route::get('information','StudyDataController@information');

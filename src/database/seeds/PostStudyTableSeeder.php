@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ConnectsTableSeeder extends Seeder
+class PostStudyTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
+
     public function run()
     {
         $param = [
@@ -31,6 +31,7 @@ class ConnectsTableSeeder extends Seeder
             ['post_id'=>9,'study_id'=>4],
             ['post_id'=>9,'study_id'=>6],
         ];
-        DB::table('connects')->insert($param);
+        DB::table('post_study')->insert($param);
     }
 }
+
