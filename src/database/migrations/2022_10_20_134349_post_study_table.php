@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConnectsTable extends Migration
+class PostStudyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateConnectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('connects', function (Blueprint $table) {
+        Schema::create('post_study', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('post_id');
             $table->integer('study_id');
@@ -28,6 +28,6 @@ class CreateConnectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('connects');
+        Schema::dropIfExists('post_study');
     }
 }
