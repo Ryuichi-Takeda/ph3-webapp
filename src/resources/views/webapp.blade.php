@@ -72,9 +72,9 @@
                                         datasets: [{
                                             label: "系列Ａ",
                                             data: [
-                                                @for ($i = 1; $i <= 31; $i++)
-                                                    3,
-                                                @endfor
+                                                @foreach ($day_study_hours_array as $day_study_hours)
+                                                    {{ $day_study_hours }},
+                                                @endforeach
 
                                             ],
                                             backgroundColor: "rgba(0,112,184)",

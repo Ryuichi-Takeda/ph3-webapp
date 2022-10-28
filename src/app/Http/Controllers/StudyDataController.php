@@ -7,15 +7,12 @@ use App\User;
 use App\Post;
 use App\Connect;
 use App\Study;
-// use App\DB;
 use DateTime;
 
 class StudyDataController extends Controller
 {
     public function information()
     {
-        // $connect = new Connect;
-
         $languages = Study::where('language_or_content', 'language')->get();
         $languages_count = Study::where('language_or_content', 'language')->count();
         $languages_array = [];
@@ -30,7 +27,6 @@ class StudyDataController extends Controller
                 ->where('study_id', $language_id)
                 ->sum('hour');
         }
-        dd($study_languages_hours_array);
     }
 
     public function index($user_id)
@@ -45,12 +41,23 @@ class StudyDataController extends Controller
 
         //今月の勉強時間
         $month_study_hours = Post::where('user_id', $user_id)
-            ->whereYear('day', date('Y'))
-            ->whereMonth('day', date('m'))
+            ->whereYear('day', 2022)
+            ->whereMonth('day', 10)
             ->sum('hour');
 
         //総勉強時間
         $total_study_hours = Post::where('user_id', $user_id)->sum('hour');
+
+        // 棒グラフ学習時間
+        $day_study_hours_array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        for ($i = 1; $i < 31; $i++) {
+            $day_study_hour = Post::where('user_id', 2)
+                ->whereYear('day', date('Y'))
+                ->whereMonth('day', date('m'))
+                ->whereDay('day', $i)
+                ->sum('hour');
+            $day_study_hours_array[$i - 1] = $day_study_hour;
+        }
 
         //学習言語
         $languages = Study::where('language_or_content', 'language')->get();
@@ -73,7 +80,7 @@ class StudyDataController extends Controller
         $contents_count = Study::where('language_or_content', 'content')->count();
         $contents_array = [];
         $study_contents_hours_array = [];
-        for ($i = 0; $i < $contents_count; $i++) {
+        for ($i = 1; $i < $contents_count; $i++) {
             $content_id = $contents[$i]->id;
             $content_arrays[] = $contents[$i]->study;
             $study_contents_hours_array[] = Post::join('post_study', 'posts.id', '=', 'post_study.post_id')
@@ -90,8 +97,9 @@ class StudyDataController extends Controller
             'today_study_hours' => $today_study_hours,
             'month_study_hours' => $month_study_hours,
             'total_study_hours' => $total_study_hours,
-            'study_languages_hours_array'=>$study_languages_hours_array,
-            'study_contents_hours_array'=>$study_contents_hours_array
+            'study_languages_hours_array' => $study_languages_hours_array,
+            'study_contents_hours_array' => $study_contents_hours_array,
+            'day_study_hours_array' => $day_study_hours_array,
         ]);
     }
 }
