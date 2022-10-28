@@ -218,10 +218,9 @@
                                     "rgb(70,9,232)",
                                     "rgb(45,0,186)",
                                 ],
-                                // data:[
                                 data: [
                                     @foreach ($study_languages_hours_array as $study_languages_hours)
-                                        {{$study_languages_hours}},
+                                        {{ $study_languages_hours }},
                                     @endforeach
                                 ],
                             }, ],
@@ -306,7 +305,11 @@
                                             "rgb(0,189,219)",
                                             "rgb(8,205,250)",
                                         ],
-                                        data: [1, 1, 1, 1],
+                                        data: [
+                                            @foreach ($study_contents_hours_array as $study_contents_hours)
+                                                {{ $study_contents_hours }},
+                                            @endforeach
+                                        ],
                                     }, ],
                                 },
                                 options: {

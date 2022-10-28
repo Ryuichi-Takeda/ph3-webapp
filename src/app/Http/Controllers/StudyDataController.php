@@ -59,15 +59,30 @@ class StudyDataController extends Controller
         $study_languages_hours_array = [];
         for ($i = 0; $i < $languages_count; $i++) {
             $language_id = $languages[$i]->id;
-            $language_arrays[] = $languages[$language_id - 1]->study;
+            $language_arrays[] = $languages[$i]->study;
             $study_languages_hours_array[] = Post::join('post_study', 'posts.id', '=', 'post_study.post_id')
                 ->join('studies', 'post_study.study_id', '=', 'studies.id')
-                ->where('user_id', 1)
+                ->where('user_id', $user_id)
                 ->groupBy('study')
                 ->where('study_id', $language_id)
                 ->sum('hour');
         }
-        // dd($study_languages_hours_array);
+
+        //学習コンテンツ
+        $contents = Study::where('language_or_content', 'content')->get();
+        $contents_count = Study::where('language_or_content', 'content')->count();
+        $contents_array = [];
+        $study_contents_hours_array = [];
+        for ($i = 0; $i < $contents_count; $i++) {
+            $content_id = $contents[$i]->id;
+            $content_arrays[] = $contents[$i]->study;
+            $study_contents_hours_array[] = Post::join('post_study', 'posts.id', '=', 'post_study.post_id')
+                ->join('studies', 'post_study.study_id', '=', 'studies.id')
+                ->where('user_id', $user_id)
+                ->groupBy('study')
+                ->where('study_id', $content_id)
+                ->sum('hour');
+        }
 
         return view('webapp', [
             'user_id' => $user_id,
@@ -75,7 +90,8 @@ class StudyDataController extends Controller
             'today_study_hours' => $today_study_hours,
             'month_study_hours' => $month_study_hours,
             'total_study_hours' => $total_study_hours,
-            'study_languages_hours_array'=>$study_languages_hours_array
+            'study_languages_hours_array'=>$study_languages_hours_array,
+            'study_contents_hours_array'=>$study_contents_hours_array
         ]);
     }
 }
