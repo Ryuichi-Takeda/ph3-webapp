@@ -11,24 +11,6 @@ use DateTime;
 
 class StudyDataController extends Controller
 {
-    public function information()
-    {
-        $languages = Study::where('language_or_content', 'language')->get();
-        $languages_count = Study::where('language_or_content', 'language')->count();
-        $languages_array = [];
-        $study_languages_hours_array = [];
-        for ($i = 0; $i < $languages_count; $i++) {
-            $language_id = $languages[$i]->id;
-            $language_arrays[] = $languages[$language_id - 1]->study;
-            $study_languages_hours_array[] = Post::join('post_study', 'posts.id', '=', 'post_study.post_id')
-                ->join('studies', 'post_study.study_id', '=', 'studies.id')
-                ->where('user_id', 1)
-                ->groupBy('study')
-                ->where('study_id', $language_id)
-                ->sum('hour');
-        }
-    }
-
     public function index($user_id)
     {
         $user = User::where('id', $user_id)->get();
@@ -51,7 +33,7 @@ class StudyDataController extends Controller
         // 棒グラフ学習時間
         $day_study_hours_array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         for ($i = 1; $i < 31; $i++) {
-            $day_study_hour = Post::where('user_id', 2)
+            $day_study_hour = Post::where('user_id', $user_id)
                 ->whereYear('day', date('Y'))
                 ->whereMonth('day', date('m'))
                 ->whereDay('day', $i)
